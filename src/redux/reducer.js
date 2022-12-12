@@ -33,9 +33,13 @@ export default function reducer (state = initialState, action) {
                 year: favItem.year
             }
             const favorites = [...state.favorites, item];
-            console.log(favorites)
             return {...state, favorites}
         }
+    }
+    if (action.type === 'REMOVE_FAV_ITEM') {
+        const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
+        const favorites = filtered
+        return {...state, favorites}
     }
     return state
 }
