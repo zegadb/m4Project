@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ListPage.css';
+import Favorites from '../../components/Favorites/Favorites';
 
 class ListPage extends Component {
     state = {
@@ -8,8 +9,17 @@ class ListPage extends Component {
         ]
     }
     componentDidMount() {
-        const id = this.props.match.params;
-        console.log(id);
+        // const id = this.props.match.params;
+        // console.log(id);
+
+        // const request = async () => {
+        //     const response = await fetch("https://acb-api.algoritmika.org/api/movies/list/")
+        //     const data = await response.json()
+
+        //     return data
+        // }
+        // request().then().catch()
+
         // TODO: запрос к сервер на получение списка
         // TODO: запросы к серверу по всем imdbID
     }
@@ -21,7 +31,7 @@ class ListPage extends Component {
                     {this.state.movies.map((item) => {
                         return (
                             <li key={item.imdbID}>
-                                <a href="https://www.imdb.com/title/tt0068646/" target="_blank">{item.title} ({item.year})</a>
+                                <a href={`https://www.imdb.com/title/${item.imdbID}/`} target="_blank">{item.title} ({item.year})</a>
                             </li>
                         );
                     })}
