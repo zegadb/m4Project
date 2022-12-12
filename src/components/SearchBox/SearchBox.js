@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import store from '../../redux/store';
+import { fetchMovies } from '../../redux/actions';
 import './SearchBox.css';
 
 class SearchBox extends Component {
@@ -10,6 +12,10 @@ class SearchBox extends Component {
     }
     searchBoxSubmitHandler = (e) => {
         e.preventDefault();
+        store.dispatch(fetchMovies(`https://www.omdbapi.com/?s=${this.state.searchLine}&apikey=e61cb5b3`))
+        setTimeout(() => {
+            console.log(store.getState().movies)
+        }, 2000);
     }
     render() {
         const { searchLine } = this.state;

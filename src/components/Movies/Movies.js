@@ -8,8 +8,8 @@ class Movies extends Component {
         movies: []
     }
     componentDidMount() {
-        const state = store.getState()
-        this.setState({movies: state.movies})
+        this.setState({movies: store.getState().movies})
+        store.subscribe(() => this.setState({movies: store.getState().movies}))
     }
     render() { 
         return ( 

@@ -1,6 +1,43 @@
+const SEARCH_MOVIE = 'SEARCH_MOVIE'
+const ADD_TO_LIST = 'ADD_TO_LIST'
+const REMOVE_FAV_ITEM = 'REMOVE_FAV_ITEM'
+
 const initialState = {
     favorites: [],
-    movies: [
+    movies: []
+}
+export default function reducer (state = initialState, action) {
+    if (action.type === SEARCH_MOVIE) {
+        const movies = action.movies
+        return {...state, movies}
+    }
+    if (action.type === ADD_TO_LIST) {
+        let check = false
+        state.favorites.forEach(item => {
+            if (action.payload.imdbID === item.imdbID)
+                check = true
+        })
+        if (!check) {
+            const favItem = state.movies.find(item => 
+                item.imdbID === action.payload.imdbID);
+            const item = {
+                imdbID: favItem.imdbID,
+                Title: favItem.Title,
+                Year: favItem.Year
+            }
+            const favorites = [...state.favorites, item];
+            return {...state, favorites}
+        }
+    }
+    if (action.type === REMOVE_FAV_ITEM) {
+        const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
+        const favorites = filtered
+        return {...state, favorites}
+    }
+    return state
+}
+
+/*
         {
             imdbID: 'tt3896198',
             title: "Guardians of the Galaxy Vol. 2",
@@ -15,31 +52,4 @@ const initialState = {
             poster: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
 
         }
-    ]
-}
-export default function reducer (state = initialState, action) {
-    if (action.type === 'ADD_TO_LIST') {
-        let check = false
-        state.favorites.forEach(item => {
-            if (action.payload.imdbID === item.imdbID)
-                check = true
-        })
-        if (!check) {
-            const favItem = state.movies.find(item => 
-                item.imdbID === action.payload.imdbID);
-            const item = {
-                imdbID: favItem.imdbID,
-                title: favItem.title,
-                year: favItem.year
-            }
-            const favorites = [...state.favorites, item];
-            return {...state, favorites}
-        }
-    }
-    if (action.type === 'REMOVE_FAV_ITEM') {
-        const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
-        const favorites = filtered
-        return {...state, favorites}
-    }
-    return state
-}
+*/

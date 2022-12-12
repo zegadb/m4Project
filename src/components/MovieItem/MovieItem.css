@@ -29,3 +29,12 @@
     opacity: 0.9;
     transition: all 0.2s linear;
 }
+.movie-item__poster--not-found {
+    min-width: 100px;
+    max-width: 100px;
+    height: 150px;
+    margin-right: 21px;
+    background-color: #d3d3d3;
+    display: grid;
+    place-items: center;
+}
