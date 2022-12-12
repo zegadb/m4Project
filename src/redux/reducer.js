@@ -1,10 +1,12 @@
 const SEARCH_MOVIE = 'SEARCH_MOVIE'
+const SAVE_LIST = 'SAVE_LIST'
 const ADD_TO_LIST = 'ADD_TO_LIST'
 const REMOVE_FAV_ITEM = 'REMOVE_FAV_ITEM'
 
 const initialState = {
     favorites: [],
-    movies: []
+    movies: [],
+    link: ''
 }
 export default function reducer (state = initialState, action) {
     if (action.type === SEARCH_MOVIE) {
@@ -33,6 +35,10 @@ export default function reducer (state = initialState, action) {
         const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
         const favorites = filtered
         return {...state, favorites}
+    }
+    if (action.type === SAVE_LIST) {
+        const link = action.link
+        return {...state, link}
     }
     return state
 }

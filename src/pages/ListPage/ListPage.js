@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import './ListPage.css';
+import store from '../../redux/store';
 import Favorites from '../../components/Favorites/Favorites';
 
 class ListPage extends Component {
     state = {
         movies: [
             { title: 'The Godfather', year: 1972, imdbID: 'tt0068646' }
-        ]
+        ],
+        link: ''
     }
     componentDidMount() {
-        // const id = this.props.match.params;
-        // console.log(id);
-
-        // const request = async () => {
-        //     const response = await fetch("https://acb-api.algoritmika.org/api/movies/list/")
-        //     const data = await response.json()
-
-        //     return data
-        // }
-        // request().then().catch()
-
+        console.log('store.getState().link', store.getState().link)
+        store.subscribe(() => {this.setState({link: store.getState().link})})
+        fetch('https://acb-api.algoritmika.org/api/movies/list/'+store.getState().link)
+        .then(response => response.json())
+        .then(data => console.log(data))
         // TODO: запрос к сервер на получение списка
         // TODO: запросы к серверу по всем imdbID
     }

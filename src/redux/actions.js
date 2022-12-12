@@ -1,28 +1,34 @@
 export function addToList(imdbID) {
     return {
-        type: 'ADD_TO_LIST',
+        type: "ADD_TO_LIST",
         payload: {
-            imdbID: imdbID
-        }
-    }
+            imdbID: imdbID,
+        },
+    };
 }
 export function removeFavItem(imdbID) {
     return {
-        type: 'REMOVE_FAV_ITEM',
+        type: "REMOVE_FAV_ITEM",
         payload: {
-            id: imdbID
-        }
-    }
+            id: imdbID,
+        },
+    };    
 }
 export function fetchMovies(url) {
-    return function(dispatch) {
+    return function (dispatch) {
         fetch(url)
-        .then(response => response.json())
-        .then(json => dispatch(
-            {
-                type: 'SEARCH_MOVIE',
-                movies: json.Search
-            }
-        ))
+        .then((response) => response.json())
+        .then((json) =>
+            dispatch({
+                type: "SEARCH_MOVIE",
+                movies: json.Search,
+            })
+        );
+    };
+}
+export function saveList(link) {
+    return {
+        type: 'SAVE_LIST',
+        link: link
     }
 }

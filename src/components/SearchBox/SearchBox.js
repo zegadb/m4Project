@@ -13,9 +13,6 @@ class SearchBox extends Component {
     searchBoxSubmitHandler = (e) => {
         e.preventDefault();
         store.dispatch(fetchMovies(`https://www.omdbapi.com/?s=${this.state.searchLine}&apikey=e61cb5b3`))
-        setTimeout(() => {
-            console.log(store.getState().movies)
-        }, 2000);
     }
     render() {
         const { searchLine } = this.state;

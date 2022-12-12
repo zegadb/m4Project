@@ -37,3 +37,6 @@
     align-items: center;
     margin-bottom: 4px;
 }
+.favorites__save:disabled {
+    background-color: #d3d3d3;
+}
