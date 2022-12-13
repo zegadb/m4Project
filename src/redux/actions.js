@@ -32,28 +32,28 @@ export function saveList(link) {
         link: link
     }
 }
-// export function loadList() {
-//     return function (dispatch) {
-//         fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
-//         .then(res => res.json())
-//         .then(data => {
-//             let movieList = []
-//             data.movies.forEach(item => {
-//                 fetch('http://www.omdbapi.com/?i='+item+'&apikey=e61cb5b3')
-//                 .then(res => res.json())
-//                 .then(data => {
-//                     const object = {
-//                         title: data.Title,
-//                         year: data.Year,
-//                         imdbID: data.imdbID,
-//                     }
-//                     movieList.push(object)
-//                 })
-//             });
-//             dispatch({
-//                 type: 'LOAD_LIST',
-//                 movieList: movieList
-//             })
-//         })
-//     }
-// }
+export function loadList() {
+    return function (dispatch) {
+        fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
+        .then(res => res.json())
+        .then(data => {
+            let movieList = []
+            data.movies.forEach(item => {
+                fetch('http://www.omdbapi.com/?i='+item+'&apikey=e61cb5b3')
+                .then(res => res.json())
+                .then(data => {
+                    const object = {
+                        title: data.Title,
+                        year: data.Year,
+                        imdbID: data.imdbID,
+                    }
+                    movieList.push(object)
+                })
+            });
+            dispatch({
+                type: 'LOAD_LIST',
+                movieList: movieList
+            })
+        })
+    }
+}

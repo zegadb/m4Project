@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { removeFavItem } from "../../redux/actions";
 import store from "../../redux/store";
+import { connect } from "react-redux";/
 import "./Favorites.css";
 import { saveList } from "../../redux/actions";
+
 
 class Favorites extends Component {
   state = {
@@ -80,3 +82,5 @@ class Favorites extends Component {
 }
 
 export default Favorites;
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

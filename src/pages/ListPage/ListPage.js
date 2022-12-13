@@ -5,13 +5,19 @@ import { loadList } from '../../redux/actions';
 
 class ListPage extends Component {
     state = {
-        movies: ''
+        movies: []
     }
     componentDidMount() {
+        store.dispatch(loadList())
+        this.setState({movies: store.getState().movieList})
+        store.subscribe(() => this.setState({movies: store.getState().movieList}))
+        setTimeout(() => {
+            console.log(this.state.movies)
+        }, 2000);
+/*
         fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
         .then(res => res.json())
         .then(data => {
-            let movieList = []
             data.movies.forEach(item => {
                 fetch('http://www.omdbapi.com/?i='+item+'&apikey=e61cb5b3')
                 .then(res => res.json())
@@ -21,24 +27,30 @@ class ListPage extends Component {
                         year: data.Year,
                         imdbID: data.imdbID,
                     }
-                    movieList.push(object)
+                    this.state.movies.push(object)
                 })
             });
-            console.log([...movieList])
         })
+*/
     }
     render() {
+        // console.log(this.state.movies)
+        // if(this.state.movies) return;
         return (
             <div className="list-page">
                 <h1 className="list-page__title">Мой список</h1>
                 <ul>
-                    {/* {this.state.movies.forEach((item) => {
+                    {this.state.movies ?
+                    this.state.movies.forEach((item) => {
                         return (
                             <li key={item.imdbID}>
                                 <a href={`https://www.imdb.com/title/${item.imdbID}/`} target="_blank">{item.title} ({item.year})</a>
                             </li>
                         );
-                    })} */}
+                    })
+                    :
+                    null
+                    }
                 </ul>
             </div>
         );
@@ -78,3 +90,29 @@ export default ListPage;
             console.log(this.state.movies)
         }, 2000);
 */
+/*
+const fetchList = async () => {
+            const res = await fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
+            const data = await res.json()
+
+            data.movies.forEach(item => {
+                const fetchItems = async () => {
+                    const res = await fetch('http://www.omdbapi.com/?i='+item+'&apikey=e61cb5b3')
+                    const data = await res.json()
+                    const object = {
+                        title: data.Title,
+                        year: data.Year,
+                        imdbID: data.imdbID,
+                    }
+                    this.state.movies.push(object)
+                }
+                fetchItems().then().catch()
+            })
+        }
+        fetchList().then().catch()
+        console.log(this.state.movies);
+        setTimeout(() => {
+            console.log(this.state.movies);
+    
+        }, 2000);
+        */

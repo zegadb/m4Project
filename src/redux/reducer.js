@@ -12,6 +12,7 @@ const initialState = {
 }
 export default function reducer (state = initialState, action) {
     if (action.type === LOAD_LIST) {
+        console.log(action.movieList)
         const movieList = action.movieList
         return {...state, movieList}
     }
