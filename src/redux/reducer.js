@@ -1,14 +1,20 @@
 const SEARCH_MOVIE = 'SEARCH_MOVIE'
 const SAVE_LIST = 'SAVE_LIST'
+const LOAD_LIST = 'LOAD_LIST'
 const ADD_TO_LIST = 'ADD_TO_LIST'
 const REMOVE_FAV_ITEM = 'REMOVE_FAV_ITEM'
 
 const initialState = {
     favorites: [],
     movies: [],
-    link: ''
+    link: '',
+    movieList: []
 }
 export default function reducer (state = initialState, action) {
+    if (action.type === LOAD_LIST) {
+        const movieList = action.movieList
+        return {...state, movieList}
+    }
     if (action.type === SEARCH_MOVIE) {
         const movies = action.movies
         return {...state, movies}
@@ -37,6 +43,7 @@ export default function reducer (state = initialState, action) {
         return {...state, favorites}
     }
     if (action.type === SAVE_LIST) {
+        window.localStorage.setItem('link', action.link)
         const link = action.link
         return {...state, link}
     }
