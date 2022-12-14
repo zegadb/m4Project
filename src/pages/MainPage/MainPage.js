@@ -15,11 +15,14 @@ class MainPage extends Component {
                         <div className="main-page__search-box">
                             <SearchBox />
                         </div>
+                        <div className="main-page__favorites favMobile">
+                            <Favorites />
+                        </div>
                         <div className="main-page__movies">
                             <Movies />
                         </div>
                     </section>
-                    <aside className="main-page__favorites">
+                    <aside className="main-page__favorites favDesktop">
                         <Favorites />
                     </aside>
                 </main>

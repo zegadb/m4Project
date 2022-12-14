@@ -39,3 +39,14 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+@media  screen and (max-width: 440px) {
+    .search-box__form-input {
+        box-sizing: border-box;
+        display: block;
+        margin-top: 5px;
+        width: 70vw;
+        font-size: 14px;
+        padding: 5px 10px;
+        border: 1px solid rgba(0, 8, 7, .5);
+    }
+}
