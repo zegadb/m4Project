@@ -65,7 +65,8 @@ export default function reducer (state = initialState, action) {
     if (action.type === REMOVE_FAV_ITEM) {
         const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
         const favorites = filtered
-        return {...state, favorites, inner: false}
+        const check = filtered.length === 0 ? false : true
+        return {...state, favorites, inner: check}
     }
     if (action.type === SAVE_LIST) {
         window.localStorage.setItem('link', action.link)
