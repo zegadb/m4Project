@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { removeFavItem } from "../../redux/actions";
 import store from "../../redux/store";
-import { connect } from "react-redux";/
+import { connect } from "react-redux";
 import "./Favorites.css";
 import { saveList } from "../../redux/actions";
 

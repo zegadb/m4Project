@@ -3,18 +3,39 @@ const SAVE_LIST = 'SAVE_LIST'
 const LOAD_LIST = 'LOAD_LIST'
 const ADD_TO_LIST = 'ADD_TO_LIST'
 const REMOVE_FAV_ITEM = 'REMOVE_FAV_ITEM'
+const LOAD_LIST_REQUEST = 'LOAD_LIST_REQUEST'
+const LOAD_LIST_SUCCESS = 'LOAD_LIST_SUCCESS'
+const LOAD_LIST_FAILURE = 'LOAD_LIST_FAILURE'
 
 const initialState = {
     favorites: [],
     movies: [],
     link: '',
-    movieList: []
+    loading: null,
+    movieList: [],
+    error: ''
 }
 export default function reducer (state = initialState, action) {
-    if (action.type === LOAD_LIST) {
-        console.log(action.movieList)
-        const movieList = action.movieList
-        return {...state, movieList}
+    switch (action.type) {
+        case LOAD_LIST_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case LOAD_LIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                movieList: action.payload,
+                error: ''
+            }
+        case LOAD_LIST_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                movieList: '',
+                error: action.payload
+            }
     }
     if (action.type === SEARCH_MOVIE) {
         const movies = action.movies

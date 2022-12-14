@@ -2,46 +2,52 @@ import React, { Component } from 'react';
 import './ListPage.css';
 import store, {getState} from '../../redux/store';
 import { loadList } from '../../redux/actions';
+import { render } from '@testing-library/react';
 
 class ListPage extends Component {
     state = {
-        movies: []
+        loading: true,
+        movieList: [],
+        error: '',
+        load: false
     }
     componentDidMount() {
         store.dispatch(loadList())
-        this.setState({movies: store.getState().movieList})
-        store.subscribe(() => this.setState({movies: store.getState().movieList}))
+        this.setState({movieList: store.getState().movieList})
+        this.setState({loading: store.getState().loading})
+        this.setState({error: store.getState().error})
+        store.subscribe(() => this.setState({movieList: store.getState().movieList}))
+        store.subscribe(() => this.setState({loading: store.getState().loading}))
+        store.subscribe(() => this.setState({error: store.getState().error}))
         setTimeout(() => {
-            console.log(this.state.movies)
-        }, 2000);
-/*
-        fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
-        .then(res => res.json())
-        .then(data => {
-            data.movies.forEach(item => {
-                fetch('http://www.omdbapi.com/?i='+item+'&apikey=e61cb5b3')
-                .then(res => res.json())
-                .then(data => {
-                    const object = {
-                        title: data.Title,
-                        year: data.Year,
-                        imdbID: data.imdbID,
-                    }
-                    this.state.movies.push(object)
-                })
-            });
-        })
-*/
+            this.setState({load: true})
+        }, 1500);
     }
     render() {
-        // console.log(this.state.movies)
-        // if(this.state.movies) return;
+        if (!this.state.load) return (
+            <div className="list-page">
+                <h1 className="list-page__title">Мой список</h1>
+                <ul>
+                    Loading....
+                </ul>
+            </div>
+        )
+        console.log(this.state.movieList)
         return (
             <div className="list-page">
                 <h1 className="list-page__title">Мой список</h1>
                 <ul>
-                    {this.state.movies ?
-                    this.state.movies.forEach((item) => {
+                    {!this.state.movieList.length && this.state.loading &&
+                    <p style={{fontSize: '20px'}}>Loading, please wait...</p>}
+                    {this.state.movieList.length && this.state.loading ?
+                    this.state.movieList.map(() => {
+                        return <li>Loading...</li>
+                    })
+                    :
+                    null
+                    }
+                    {this.state.movieList.length && !this.state.loading ?
+                    this.state.movieList.map((item) => {
                         return (
                             <li key={item.imdbID}>
                                 <a href={`https://www.imdb.com/title/${item.imdbID}/`} target="_blank">{item.title} ({item.year})</a>

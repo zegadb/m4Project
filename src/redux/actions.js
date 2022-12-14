@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function addToList(imdbID) {
     return {
         type: "ADD_TO_LIST",
@@ -32,8 +34,26 @@ export function saveList(link) {
         link: link
     }
 }
+export function loadListRequest() {
+    return {
+        type: 'LOAD_LIST_REQUEST'
+    }
+}
+export function loadListSuccess(list) {
+    return {
+        type: 'LOAD_LIST_SUCCESS',
+        payload: list
+    }
+}
+export function loadListFailure(error) {
+    return {
+        type: 'LOAD_LIST_FAILURE',
+        payload: error
+    }
+}
 export function loadList() {
     return function (dispatch) {
+        dispatch(loadListRequest())
         fetch('https://acb-api.algoritmika.org/api/movies/list/'+window.localStorage.getItem('link'))
         .then(res => res.json())
         .then(data => {
@@ -49,11 +69,9 @@ export function loadList() {
                     }
                     movieList.push(object)
                 })
-            });
-            dispatch({
-                type: 'LOAD_LIST',
-                movieList: movieList
             })
+            dispatch(loadListSuccess(movieList))
         })
+        .catch(err => dispatch(loadListFailure(err)))
     }
 }
