@@ -39,10 +39,11 @@ export function loadListRequest() {
         type: 'LOAD_LIST_REQUEST'
     }
 }
-export function loadListSuccess(list) {
+export function loadListSuccess(list, title) {
     return {
         type: 'LOAD_LIST_SUCCESS',
-        payload: list
+        title: title,
+        list: list
     }
 }
 export function loadListFailure(error) {
@@ -70,7 +71,7 @@ export function loadList() {
                     movieList.push(object)
                 })
             })
-            dispatch(loadListSuccess(movieList))
+            dispatch(loadListSuccess(movieList, data.title))
         })
         .catch(err => dispatch(loadListFailure(err)))
     }

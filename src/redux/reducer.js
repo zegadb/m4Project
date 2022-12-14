@@ -13,7 +13,8 @@ const initialState = {
     link: '',
     loading: null,
     movieList: [],
-    error: ''
+    error: '',
+    title: ''
 }
 export default function reducer (state = initialState, action) {
     switch (action.type) {
@@ -26,7 +27,8 @@ export default function reducer (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                movieList: action.payload,
+                movieList: action.list,
+                title: action.title,
                 error: ''
             }
         case LOAD_LIST_FAILURE:
