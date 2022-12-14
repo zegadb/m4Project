@@ -1,10 +1,16 @@
 .list-page {
     padding: 42px calc(50% - 300px);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .list-page__title {
     font-size: 34px;
     margin-bottom: 26px;
+    margin: auto;
+    width: 100%;
+    text-align: center;
 }
 
 .list-page ul li {

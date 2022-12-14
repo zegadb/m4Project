@@ -2,6 +2,7 @@
     padding: 42px calc(50% - 500px);
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap-reverse;
 }
 
 .main-page__main-section {
@@ -16,4 +17,25 @@
 
 .main-page__favorites {
     width: 35%;   
+}
+@media screen and (max-width: 775px) {
+    .main-page__favorites {
+        min-width: 60%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 625px) {
+    .main-page__favorites {
+        min-width: 80%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 425px) {
+    .main-page__favorites {
+        min-width: 80%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
 }
