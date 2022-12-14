@@ -29,6 +29,9 @@
     opacity: 0.9;
     transition: all 0.2s linear;
 }
+.movie-item__add-button:disabled {
+    background-color: #d3d3d3;
+}
 .movie-item__poster--not-found {
     min-width: 100px;
     max-width: 100px;

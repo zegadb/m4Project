@@ -11,12 +11,16 @@ class Favorites extends Component {
     title: "",
     movies: [],
     link: "",
-    submitted: false,
+    submitted: false
   };
   componentDidMount() {
     this.setState({ movies: store.getState().favorites });
+    this.setState({ inner: store.getState().inner });
     store.subscribe(() =>
       this.setState({ movies: store.getState().favorites })
+    );
+    store.subscribe(() =>
+      this.setState({ inner: store.getState().inner })
     );
   }
   onDelete = (id) => {
@@ -71,7 +75,7 @@ class Favorites extends Component {
           {this.state.submitted ? (
             <a href={`/list/${this.state.link}`}>Перейти к списку</a>
           ) : (
-            <button className="favorites__save" disabled={!this.state.title}>
+            <button className="favorites__save" disabled={!this.state.title + !this.state.inner}>
               Сохранить список
             </button>
           )}

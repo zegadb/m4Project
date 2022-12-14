@@ -14,7 +14,8 @@ const initialState = {
     loading: null,
     movieList: [],
     error: '',
-    title: ''
+    title: '',
+    inner: false
 }
 export default function reducer (state = initialState, action) {
     switch (action.type) {
@@ -58,13 +59,13 @@ export default function reducer (state = initialState, action) {
                 Year: favItem.Year
             }
             const favorites = [...state.favorites, item];
-            return {...state, favorites}
+            return {...state, favorites, inner: true}
         }
     }
     if (action.type === REMOVE_FAV_ITEM) {
         const filtered = state.favorites.filter(item => action.payload.id !== item.imdbID)
         const favorites = filtered
-        return {...state, favorites}
+        return {...state, favorites, inner: false}
     }
     if (action.type === SAVE_LIST) {
         window.localStorage.setItem('link', action.link)
